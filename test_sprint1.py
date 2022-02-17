@@ -123,16 +123,19 @@ class TestBuscaEmailRemetente(LoadData):
         self.load_list()
         sublista = busca_email_remetente(self.lista, 'cteixeira@yahoo.com.br')
         assert isinstance(sublista, list)
+        assert isinstance(sublista, tuple)
         assert isinstance(sublista[0], tuple)
         assert len(sublista) == 2
         assert len(sublista[0]) == 11
         sublista = busca_email_remetente(self.lista, 'manuela29@barros.br')
         assert isinstance(sublista, list)
+        assert isinstance(sublista, tuple)
         assert isinstance(sublista[0], tuple)
         assert len(sublista) == 1
         assert len(sublista[0]) == 11
         sublista = busca_email_remetente(self.lista, 'xyz@xtz.com')
         assert isinstance(sublista, list)
+        assert isinstance(sublista, tuple)
         assert len(sublista) == 0
 
 
