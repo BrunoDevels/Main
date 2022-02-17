@@ -271,4 +271,3 @@ class TestBuscaData(LoadData):
         lista_vazia = busca_data(self.lista, dia='15', mes='03', ano='2017')
         assert isinstance(lista_vazia, list)
         assert len(lista_vazia) == 0
-
