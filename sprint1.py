@@ -43,7 +43,6 @@ def remetente_destinatario_prefixo_dr_dra(lista):
 
 def destinatario_busca_sobrenomes(lista, sobrenome):
     sublista = []
-    index = 0
     for iten in lista:
         if sobrenome in iten[4]:
             if 'Dr' in iten[4] or 'Sr' in iten[4]:
@@ -51,9 +50,9 @@ def destinatario_busca_sobrenomes(lista, sobrenome):
                 name = formated_name.split(' ')[0]
             else:
                 name = iten[4].split(' ')[0]
-                cpf = iten[6]
-                lists = (name, cpf)
-                sublista.append(lists)
+            cpf = iten[6]
+            lists = (name, cpf)
+            sublista.append(lists)
     return sublista
 
 
@@ -89,51 +88,120 @@ def destinatario_busca_sobrenomes_ultimos(lista, sobrenome):
         sublista = sublista[-10:]
     return sublista
 
-
 def remetente_destinatario_mesmo_estado(lista):
-    pass
-
+    sublista = []
+    for state in lista:
+        remetente = state[1].split(' / ')[1]
+        destinatario = state[5].split(' / ')[1]
+        if remetente == destinatario:
+            sublista.append(state)   
+    return sublista
 
 def busca_email_remetente(lista, email):
-    pass
-
+    sublista = []
+    listalen = len(lista)
+    index = 0
+    for iten in lista:
+        if iten[3] == email:
+            sublista.append(iten)
+            if index == listalen:
+                return sublista
+            index += 1
+    return sublista
 
 def busca_email_destinatario(lista, email):
-    pass
+    sublista = []
+    listalen = len(lista)
+    index = 0
+    for iten in lista:
+        if iten[7] == email:
+            sublista.append(iten)
+            if index == listalen:
+                return sublista
+            index += 1
+    return sublista
 
 
 def busca_estado_remetente(lista):
-    pass
+    sublista = []
+    for state in lista:
+        remetente = state[1].split(' / ')[1]
+        sublista.append(remetente)
+        ss = set(sublista)
+        sl = list(ss)
+    return sl
 
 
 def busca_email_remetente_por_dominio(lista, dominio='gmail.com'):
-    pass
+    sublista = []
+    listalen = len(lista)
+    index = 0
+    for iten in lista:
+        dom = iten[3].split('@')[1]
+        if dom == dominio:
+            sublista.append(iten)
+            if index == listalen:
+                return sublista
+            index += 1
+    return sublista
 
 
 def busca_email_destinatario_por_dominio(lista, dominio='gmail.com'):
-    pass
+    sublista = []
+    listalen = len(lista)
+    index = 0
+    for iten in lista:
+        dom = iten[7].split('@')[1]
+        if dom == dominio:
+            sublista.append(iten)
+            if index == listalen:
+                return sublista
+            index += 1
+    return sublista
 
 
 def busca_cpf(lista, cpf):
-    pass
+    sublista = []
+    for iten in lista:
+        if iten[2] == cpf or iten[6] == cpf:
+            sublista.append(iten)
+    return sublista
 
 
 def busca_primeira_data_por_mes(lista, mes):
-    pass
-
+    sublista = []
+    for data in lista:
+        month = data[8].split('-')[1]
+        if month == mes:
+            sublista.append(data)
+    return(sublista)
 
 def busca_segunda_data_por_mes(lista, mes):
-    pass
+    sublista = []
+    for data in lista:
+        month = data[9].split('-')[1]
+        if month == mes:
+            sublista.append(data)
+    return(sublista)
 
 
 def busca_terceira_data_por_mes(lista, mes):
-    pass
+    sublista = []
+    for data in lista:
+        month = data[10].split('-')[1]
+        if month == mes:
+            sublista.append(data)
+    return(sublista)
 
 
 def busca_data(lista, dia='01', mes='07', ano='2020'):
-    pass
-
-
+    sublista = []
+    for iten in lista:
+        date = f'{ano}-{mes}-{dia}'
+        if date == iten[8] or date == iten[9] or date == iten[10]:
+            sublista.append(iten)
+    return sublista
+        
 if __name__ == "__main__":
     with open('lista.bin', 'rb') as list_in_file:
         lista = pickle.load(list_in_file)
