@@ -107,7 +107,7 @@ def busca_email_remetente(lista, email):
             if index == listalen:
                 return sublista
             index += 1
-    return sublista
+    return tuple(sublista)
 
 def busca_email_destinatario(lista, email):
     sublista = []
